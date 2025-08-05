@@ -22,7 +22,7 @@ const RegisterPage = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      const response = await axios.post("/api/register", data, {
+      const response = await axios.post("/auth/register", data, {
         headers: {
           "Content-Type": "application/json",
         },

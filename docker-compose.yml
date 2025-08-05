@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST: database
+      - DB_PORT: 5432
+      - DB_USER: postgres
+      - DB_PASSWORD: mydb
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL: http://localhost:8000/api
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

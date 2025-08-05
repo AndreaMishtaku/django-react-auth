@@ -3,6 +3,7 @@ import LoginPage from "@/pages/login";
 import RegisterPage from "@/pages/register";
 import WelcomePage from "@/pages/welcome";
 import { Navigate, Route, Routes, BrowserRouter } from "react-router";
+import ProtectedRoute from "./protected-route";
 
 const AppRoutes = () => {
   axiosInit();
@@ -13,7 +14,14 @@ const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/logout" element={<RegisterPage />} />
-        <Route path="/Welcome" element={<WelcomePage />} />
+        <Route
+          path="/welcome"
+          element={
+            <ProtectedRoute>
+              <WelcomePage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

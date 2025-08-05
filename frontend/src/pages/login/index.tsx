@@ -25,7 +25,8 @@ const LoginPage = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      dispatch(login(data));
+      await dispatch(login(data));
+      navigate("/welcome");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
